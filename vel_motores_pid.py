@@ -36,25 +36,19 @@ class Velocidad(object):
 				datos = linea.split(";")
 				distancia = float(datos[1])
 				error = distancia - self.distancia_setpoint 
-				self.suma_error += error
-				if self.suma_error > 6000:
-					self.suma_error = 6000
 				self.error_proporcional = self.kp * error
-				self.error_integrador = self.ki * self.suma_error * dif_tiempo
+				self.error_integrador = self.ki * error * dif_tiempo
 				self.error_derivativo = self.kd * (error/dif_tiempo)
 				self.suma_errores = self.error_derivativo + self.error_integrador + self.error_proporcional
 				self.tiempo_anterior = self.tiempo_actual
 				self.tiempo_actual = time()
-				#print("distancia:" +str(distancia))
-				#print("Suma error:" + str(self.suma_error))
-				#print("Suma total:" + str(self.suma_errores))
+				
 
 	def get_error(self):
 		return self.suma_errores
 	
 	def set_errores(self, valor):
 		self.suma_errores = valor
-		
 
 
 if __name__ == '__main__':
@@ -64,7 +58,10 @@ if __name__ == '__main__':
 	x.start()
 	y.start()
 	while True:
-		print(y)
+		print(m1.get_error())
+		sleep(1)
+	
+
 
 
 
