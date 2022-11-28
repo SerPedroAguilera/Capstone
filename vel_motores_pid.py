@@ -49,8 +49,12 @@ class Velocidad(object):
 				#print("Suma error:" + str(self.suma_error))
 				#print("Suma total:" + str(self.suma_errores))
 
-	def suma_errores(self):
+	def get_error(self):
 		return self.suma_errores
+	
+	def set_errores(self, valor):
+		self.suma_errores = valor
+		
 
 
 if __name__ == '__main__':
