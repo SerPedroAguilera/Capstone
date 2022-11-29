@@ -107,18 +107,18 @@ class Controlador():
         #self.motor_izquierdo.mandar_velocidad(-(abs((vel-ang_speed))))
 
 
-    def giro(sentido, velocidad):
+    def giro(self, sentido, velocidad):
         #izquierda = 0
         #derecha = 1
         proporcion = 1.82
         velocidad = 100
         tiempo_vuelta = 3
         if sentido == 0:
-            vel_entregar =  [velocidad, proporcion*velocidad]
-            self.motor_derecho.mandar_velocidad(ang_speed)
-            self.motor_izquierdo.mandar_velocidad(ang_speed)
+            self.motor_derecho.mandar_velocidad(velocidad)
+            self.motor_izquierdo.mandar_velocidad(proporcion*velocidad)
         elif sentido == 1:
-            return [proporcion*velocidad, velocidad]
+            self.motor_derecho.mandar_velocidad(velocidad*proporcion)
+            self.motor_izquierdo.mandar_velocidad(velocidad)
         
         
     def empezar_circuito(self):
