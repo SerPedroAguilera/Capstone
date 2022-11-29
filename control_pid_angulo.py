@@ -13,7 +13,7 @@ class Control_angulo():
         self.salida_anterior_angulo = 0
         self.tiempo = time.time()
         #self.periodo = 5
-        self.dt = 0.5
+        self.dt = 0.1
         self.sensor = Centro_masa()
         pass
 

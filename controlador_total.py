@@ -93,7 +93,7 @@ class Controlador():
         self.motor_izquierdo.mandar_velocidad(ang_speed)
 
     def send_ang_speed_vel(self, vel, ang_speed):
-        vel = 100
+        vel = 1000
         if ang_speed<0:
             self.motor_derecho.mandar_velocidad(vel)
             self.motor_izquierdo.mandar_velocidad(-(abs((vel-ang_speed))))
@@ -114,12 +114,13 @@ class Controlador():
         velocidad = 100
         tiempo_vuelta = 3
         if sentido == 0:
-            return [velocidad, proporcion*velocidad]
+            vel_entregar =  [velocidad, proporcion*velocidad]
+            self.motor_derecho.mandar_velocidad(ang_speed)
+            self.motor_izquierdo.mandar_velocidad(ang_speed)
         elif sentido == 1:
             return [proporcion*velocidad, velocidad]
         
         
-
     def empezar_circuito(self):
         circuito_act = True
         cuenta = 0
@@ -136,7 +137,7 @@ class Controlador():
         ki = 0
         kd = 0
         self.controlador_angulo = Control_angulo(kp, ki, kd)
-        for i in range(500):
+        for i in range(5000):
             out = -self.controlador_angulo.controlar_angulo()
             if out < -self.limite_velocidad:
                 out = -self.limite_velocidad
@@ -144,7 +145,7 @@ class Controlador():
                 out = self.limite_velocidad
             #print(out)
             self.send_ang_speed_vel(500, out)
-        self.send_ang_speed_vel(0, 0)
+        self.send_vel( 0)
             
 
     def turn_off(self):
@@ -174,6 +175,8 @@ class Controlador():
                 vel = int(input("Velocidad lineal: "))
                 for i in range(100):
                     self.send_vel(vel)
+            elif self.comando == "g":
+                self.giro()
             else:
                 print(self.comando + "no es valido")
 
@@ -187,7 +190,7 @@ class Controlador():
 control = Controlador('COM6','COM7', 1, 2, 3)
 '''#control = Controlador('/dev/ttyUSB0','/dev/ttyUSB1', 1, 2, 3)
 
-
+bj
 #motor = Motor('COM6')
 corriendo = True
 while corriendo:
