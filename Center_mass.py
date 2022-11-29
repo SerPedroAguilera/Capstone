@@ -60,6 +60,7 @@ class Centro_masa:
             resto = sum(restos) #Ver centros de masa
             cv2.imshow('frame', frame)
             cv2.imshow('res', resto)
+            #print(self.calcular_error())
 
             if not (self.cap.isOpened()):
                 self.mostrando_imagen = False
@@ -74,9 +75,9 @@ class Centro_masa:
         self.colores = [] 
         #Aprovados
         #self.colores.append(magenta) #No hay falsos
-        #self.colores.append(verde) #Bien
+        self.colores.append(verde) #Bien
         #self.colores.append(azul) #
-        self.colores.append(cyan) #
+        #self.colores.append(cyan) #
 
         #Reprobados
         #self.colores.append(rojo) #Lleno de falsos
@@ -89,6 +90,8 @@ class Centro_masa:
                 nuevo_color = color*255
                 rest, coordenadas = agregar_circulos(nuevo_color, frame)
                 respuesta = -self.centro_x + coordenadas[0]
+                if coordenadas[0]==0:
+                    respuesta = 0
                 #print(respuesta)
                 return respuesta
 
@@ -97,3 +100,4 @@ class Centro_masa:
 centro = Centro_masa()
 
 
+#centro.mostrar_imagen()
