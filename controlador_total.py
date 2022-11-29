@@ -180,7 +180,7 @@ class Controlador():
                 for i in range(100):
                     self.send_vel(vel)
             elif self.comando == "g":
-                self.giro()
+                self.giro(0, vel)
             else:
                 print(self.comando + "no es valido")
 
