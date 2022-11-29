@@ -114,7 +114,7 @@ class Controlador():
         proporcion = 1.82
         velocidad = 100
         tiempo_vuelta = 3
-        tiempo = hora_inicio - time.time()
+        tiempo = time.time() - hora_inicio 
         while tiempo < 10:  #revisar tiempo
             if sentido == 0:
                 self.motor_derecho.mandar_velocidad(velocidad)
@@ -122,7 +122,7 @@ class Controlador():
             elif sentido == 1:
                 self.motor_derecho.mandar_velocidad(velocidad*proporcion)
                 self.motor_izquierdo.mandar_velocidad(velocidad)
-            tiempo = hora_inicio - time.time()
+            tiempo = time.time() - hora_inicio 
         
         
     def empezar_circuito(self):
