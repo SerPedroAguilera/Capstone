@@ -110,15 +110,19 @@ class Controlador():
     def giro(self, sentido, velocidad):
         #izquierda = 0
         #derecha = 1
+        hora_inicio = time.time()
         proporcion = 1.82
         velocidad = 100
         tiempo_vuelta = 3
-        if sentido == 0:
-            self.motor_derecho.mandar_velocidad(velocidad)
-            self.motor_izquierdo.mandar_velocidad(proporcion*velocidad)
-        elif sentido == 1:
-            self.motor_derecho.mandar_velocidad(velocidad*proporcion)
-            self.motor_izquierdo.mandar_velocidad(velocidad)
+        tiempo = hora_inicio - time.time()
+        while tiempo < 10:  #revisar tiempo
+            if sentido == 0:
+                self.motor_derecho.mandar_velocidad(velocidad)
+                self.motor_izquierdo.mandar_velocidad(proporcion*velocidad)
+            elif sentido == 1:
+                self.motor_derecho.mandar_velocidad(velocidad*proporcion)
+                self.motor_izquierdo.mandar_velocidad(velocidad)
+            tiempo = hora_inicio - time.time()
         
         
     def empezar_circuito(self):
