@@ -112,17 +112,21 @@ class Controlador():
         #derecha = 1
         hora_inicio = time.time()
         proporcion = 1.82
-        velocidad = 100
+        velocidad = 300
         tiempo_vuelta = 3
         tiempo = time.time() - hora_inicio 
-        while tiempo < 10:  #revisar tiempo
+        while tiempo < 28.5:  #revisar tiempo
             if sentido == 0:
-                self.motor_derecho.mandar_velocidad(velocidad)
+                self.motor_derecho.mandar_velocidad(-velocidad)
                 self.motor_izquierdo.mandar_velocidad(proporcion*velocidad)
             elif sentido == 1:
-                self.motor_derecho.mandar_velocidad(velocidad*proporcion)
+                self.motor_derecho.mandar_velocidad(-velocidad*proporcion)
                 self.motor_izquierdo.mandar_velocidad(velocidad)
+            print(tiempo)
             tiempo = time.time() - hora_inicio 
+        self.motor_derecho.mandar_velocidad(0)
+        self.motor_izquierdo.mandar_velocidad(0)
+
         
         
     def empezar_circuito(self):
@@ -180,7 +184,8 @@ class Controlador():
                 for i in range(100):
                     self.send_vel(vel)
             elif self.comando == "g":
-                self.giro(0, vel)
+                vel =100
+                self.giro(1, vel)
             else:
                 print(self.comando + "no es valido")
 
@@ -191,7 +196,7 @@ class Controlador():
     
 
 
-control = Controlador('COM6','COM7', 1, 2, 3)
+control = Controlador('COM5','COM3', 1, 2, 3)
 '''#control = Controlador('/dev/ttyUSB0','/dev/ttyUSB1', 1, 2, 3)
 
 bj
