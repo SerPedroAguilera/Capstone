@@ -4,7 +4,7 @@ import time
 import serial.tools.list_ports as port_list
 from control_pid_angulo import Control_angulo
 from threading import Timer
-from sensor import Sensor_profundidad
+#from sensor import Sensor_profundidad
 
 
 ports = list(port_list.comports())

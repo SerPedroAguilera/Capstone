@@ -44,11 +44,16 @@ class Centro_masa:
         while self.mostrando_imagen:
             ret, frame = self.cap.read()
             restos = []
+            y_max = 340
+            y_min = 100
+            frame_analisis = frame[:][y_min:y_max][:]
             for color in self.colores:
                 nuevo_color = color*255
-                rest, coordenadas = agregar_circulos(nuevo_color, frame)
+
+                rest, coordenadas = agregar_circulos(nuevo_color, frame_analisis)
                 color_lista = [int(nuevo_color[0]), int(nuevo_color[1]), int(nuevo_color[2])]
-                cv2.circle(frame, coordenadas, 20, color_lista, -1)
+                #cv2.rectangle(frame, [0, y_max], [640, 0], [0, 0, 0], -1)
+                cv2.circle(frame, [coordenadas[0], coordenadas[1]+y_min], 20, color_lista, -1)
                 restos.append(rest)
 
             k = cv2.waitKey(1)
@@ -74,14 +79,14 @@ class Centro_masa:
         cyan = np.array([1, 1, 0]) #60
         self.colores = [] 
         #Aprovados
-        #self.colores.append(magenta) #No hay falsos
+        self.colores.append(magenta) #No hay falsos
         self.colores.append(verde) #Bien
-        #self.colores.append(azul) #
-        #self.colores.append(cyan) #
+        self.colores.append(azul) #
+        self.colores.append(cyan) #
 
         #Reprobados
-        #self.colores.append(rojo) #Lleno de falsos
-        #self.colores.append(amarillo) #Se confunde con cafe
+        self.colores.append(rojo) #Lleno de falsos
+        self.colores.append(amarillo) #Se confunde con cafe
 
     def calcular_error(self):
         if (self.cap.isOpened()):
@@ -100,4 +105,4 @@ class Centro_masa:
 centro = Centro_masa()
 
 
-#centro.mostrar_imagen()
+centro.mostrar_imagen()

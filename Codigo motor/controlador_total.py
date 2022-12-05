@@ -119,7 +119,7 @@ class Controlador():
         #derecha = 1
         hora_inicio = time.time()
         proporcion = 1.82
-        velocidad = 800
+        velocidad = 500
         tiempo_vuelta = 3
         tiempo = time.time() - hora_inicio 
         while tiempo < 10.7:  #revisar tiempo
@@ -246,7 +246,7 @@ class Controlador():
     
 
 
-control = Controlador('COM6','COM7', 2, 0, 0)
+control = Controlador('COM3','COM5', 2, 0, 0)
 '''#control = Controlador('/dev/ttyUSB0','/dev/ttyUSB1', 1, 2, 3)
 
 bj
