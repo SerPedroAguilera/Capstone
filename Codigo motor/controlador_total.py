@@ -67,7 +67,7 @@ class Controlador():
         self.motor_derecho = Motor(puerto1)
         self.motor_izquierdo = Motor(puerto2)
         self.limite_velocidad = 2000
-        #self.sensor_profundidad = Sensor_profundidad()
+        self.sensor_profundidad = Sensor_profundidad()
         self.controlador_angulo = Control_angulo(Kp, Ki, Kd)
         self.motor_derecho.mandar_velocidad(0)
         self.motor_izquierdo.mandar_velocidad(0)    
@@ -119,16 +119,16 @@ class Controlador():
         #derecha = 1
         hora_inicio = time.time()
         proporcion = 1.82
-        velocidad = 500
+        velocidad = 1200
         tiempo_vuelta = 3
         tiempo = time.time() - hora_inicio 
-        while tiempo < 10.7:  #revisar tiempo
+        while tiempo < 13:  #revisar tiempo
             if sentido == 0:
-                self.motor_derecho.mandar_velocidad(-velocidad)
-                self.motor_izquierdo.mandar_velocidad(proporcion*velocidad)
-            elif sentido == 1:
-                self.motor_derecho.mandar_velocidad(-velocidad*proporcion)
+                self.motor_derecho.mandar_velocidad(-velocidad/proporcion)
                 self.motor_izquierdo.mandar_velocidad(velocidad)
+            elif sentido == 1:
+                self.motor_derecho.mandar_velocidad(-velocidad)
+                self.motor_izquierdo.mandar_velocidad(velocidad/proporcion)
             print(tiempo)
             tiempo = time.time() - hora_inicio 
         self.motor_derecho.mandar_velocidad(0)
@@ -137,8 +137,8 @@ class Controlador():
         
     def empezar_circuito(self):
         circuito_act = True
-        cuenta = 0
-        sensor_profundidad_conectado = False
+        cuenta = 3
+        sensor_profundidad_conectado = True
         while circuito_act: # Se convierte en falso cuando se termina circuito
             recta = True
             #tiempo_inicial = time.now()
@@ -150,9 +150,9 @@ class Controlador():
                     if int(num)>100:
                         partiendo = False
             while recta: #Se convierte en falso cuando es necesario hacer la curva
-                self.linea_recta()
-                #self.send_vel(1200)
-                #print('Llendo recto')
+                #self.linea_recta()
+                self.send_vel(500)
+                print('Llendo recto')
                 ##self.motor_derecho.mandar_velocidad(1200)
                 #self.motor_izquierdo.mandar_velocidad(1200)
                 if sensor_profundidad_conectado:
@@ -165,7 +165,7 @@ class Controlador():
                         a = 1
                         recta = False
                         print("VUELTA!!!")
-            self.giro(1) #Revisar condicion para sentido
+            #self.giro(1) #Revisar condicion para sentido
             rotando = True
             while rotando and sensor_profundidad_conectado:
                 num = self.sensor_profundidad.leer()
@@ -235,7 +235,7 @@ class Controlador():
                 for i in range(100):
                     self.send_vel(vel)
             elif self.comando == "g":
-                self.giro(1)
+                self.giro(0)
             else:
                 print(self.comando + "no es valido")
 
@@ -246,7 +246,7 @@ class Controlador():
     
 
 
-control = Controlador('COM3','COM5', 2, 0, 0)
+control = Controlador('COM7','COM6', 2, 0, 0)
 '''#control = Controlador('/dev/ttyUSB0','/dev/ttyUSB1', 1, 2, 3)
 
 bj
